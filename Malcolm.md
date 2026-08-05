@@ -9,15 +9,37 @@ From this Landing page you can navigate to all the Tools Malcolm is using and to
 
 ## 2. Network Inventory 
 First, we want to go into the Inventory Manager NetBox. Here we want to define the names and the connected IPs of the servers, this does make it simpler for the analysis later, when we can connect the IPs at every time to the Servers without having to remember the IPs. 
+![NetBox Overview](Images/Malcolm_NetBox_overview.png)
 
-### 2.1. Finding the Terminal Server - Netbox is not showing any data... 
-1. Change the name 
-2. Fist IP Is set, connect to seconds IP. 
+### 2.1. Finding the Terminal Server 
+Search for the Private IP of the Terminal Server, Internet facing. Select the device. 
+![TS Search](Images/Malcolm_NetBox_search.png)
+
+1. Now we hit edit to change the information. 
+![Edit TS](Images/Malcolm_NetBox_Edit_TS.png)
+
+2. Change the name and save. 
+![TS change name](Images/Malcolm_NetBox_name_TS.png)
+
+3. Switch to the Interface section and edit the current Instance. 
+![edit interface](Images/Malcolm_NetBox_TS_Interfaces.png)
+
+4. Change the Name form `e0` to `WAN` and save. 
+![WAN Interface](Images/Malcolm_NetBox_WAN.png)
+
+5. Create a new Interface and name it `Terminal Highway` and set the type to `other`. 
+![add Interface](Images/Malcolm_NetBox_add_interface.png)
+
+6. Add the IP Address to the Interface. Paste the IP with the subnet in. Example: `10.99.13.167/32`. 
+![add ip](Images/Malcolm_NetBox_add_ip.png)
+
 ### 2.2. Find the Application Server 
-1. Change the name
-2. Fist IP is set, connect to second IP 
+Do the exact same thing here for the Application server then we done for the Terminal Server just with the different IPs. 
+
 ### 2.3. Find the PLC 
-1. Change the name 
+Because the PLC Does have only one Interface, we only have to change the Name of the PLC and the Interface, we don't have to add another one. 
+
+Now we have alle Devices with device name, IPs in the system and connected to the Networks. 
 
 ## 3. OpenSearch Dashboard
 When we go back to the [landing page](#1-open-the-malcolm-welcome-page) and open the Dashboard, the fist Dashboard you will see is the Overview, here you see the menu with all the Dashboards Malcolm is coming with and a nice overview of the network traffic in general. 
@@ -48,7 +70,6 @@ When you expand the conversation (`+` on the left side) you can see all the Info
 
 Because we just changed the name in NetBox a few minutes ago, here in Arkime is still the old name. That’s why we go back to the NetBox UI and searching for the IPs to see which device its coming from. 
 
------Add Net Box screenshots for the search------
 
 ## 6. Further Hunting
 We know now from which server the Turbine got stopped. The Question is still, from where the attack came from and how was it done. 
@@ -60,7 +81,8 @@ We could do the same here as earlier and jump form here in to Arkime, this time 
 For here we can walk backwarts and see, which IP sshd into the Application server (the separated connection, in the bottom right).  
 ![ssh connection overview](Images/Malcolm_ssh_overview.png)
 
------Through we can figure out through NetBox, that the *.226 is the Application server and the *.154 the Terminal server. The 10.99.10.13 is as well the Terminal server with the IP to the Internet. (Middle of the circle) We can See, there are a log of public IPs connected to the Terminal server, one of these is the IP from your Laptop doing the bruete force------
+Because we defined everything, we can compare the Arkime data now with the inventory and see exactly with devices talked to each other. 
+![ip overview](Images/Malcolm_NetBox_IP_Overview.png)
 
 ## 7. protocol specific default Dashboard
 To have more insights into the ssh traffic, we can open one of the many protocol specific OpenSearch Dashboards. As marked in the screenshot, you can see the IP, where the most ssh connections are coming from. Thats the source of the Dictionary attack. 
