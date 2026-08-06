@@ -2,6 +2,7 @@
 
 ## 1. Open the Malcolm welcome page
 Open the Malcolm Webpage through the link you found before on the terminal server and log in with those Login information’s. (File on terminal Server: `C:\Users\Public\Documents\Remote_Access_Quick_Reference.txt`)
+
 ![Malcolm Login](Images/Malcolm_Login.png)
 
 From this Landing page you can navigate to all the Tools Malcolm is using and to all we will using here in the workshop. (NetBox, OpenSearch Dashboards and Arkime) 
@@ -89,5 +90,21 @@ To have more insights into the ssh traffic, we can open one of the many protocol
 ![ssh Dashboard](Images/Malcolm_OpenSearch_ssh.png)
 
 ## 8. Crate own OpenSearch Dashboard 
-Screenshots, about how to with two examples. Then they can do more on their own. 
-----to be continued 
+We start simple, with cloning the Overview Dashboard. 
+![clone dashboard](Images/Malcolm_clone_dashboard.png)
+
+Rename your dashboard and continue, you should see the name of the dashboard in the top left changed. 
+
+Enable the Edit mode in the top right. For a simple fist experience we want to add the SSH source IP table that you can find on the ssh Dashboard. 
+
+Click on `Add` search for `ssh` and select the `SSH - Source IP Adress`. The panel was added. 
+![add ssh](Images/Malcolm_newDashboard_add_ssh.png)
+
+Now scrolle down the on to the bottom of the dashboard, there you find the just added diagram. Move it via Drag and drop to the place where you want it to be. Re size it form the bottom right corner. 
+![added ssh](Images/Malcolm_newDashboard_ssh.png)
+
+![moved ssh](Images/Malcolm_newDashboard_moved_ssh.png)
+
+Now have fun and create your onw personal dashboard. 
+
+    ❗Important: Don't forget to save when your are done. (upper right corner) 
