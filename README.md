@@ -22,11 +22,10 @@ Download these files before beginning the workshop:
 
 | Resource | Purpose | Download |
 |---|---|---|
-| Buffered IP List | List of known Terminal Server IP addresses used during public discovery | [Download Buffered IP List](INSERT_BUFFERED_IP_LIST_DOWNLOAD_LINK) |
-| SSH Recon Script (`ssh-recon.sh`) | Searches the buffered IP list for the assigned Terminal Server | [Download SSH Recon Script](INSERT_SSH_RECON_SCRIPT_DOWNLOAD_LINK) |
-| Password Dictionary (`dictionary.txt`) | Used during the authorized Hydra credential exercise | [Download Password Dictionary](INSERT_DICTIONARY_FILE_DOWNLOAD_LINK) |
-| Data Sheet (`Data_sheet.txt`) | Used during Malcolm Exercise |
-[Data Sheet](Data_sheet.txt) | Workshop data reference |
+| Buffered IP List | List of known Terminal Server IP addresses used during public discovery | [Download Buffered IP List](ips.txt) |
+| SSH Recon Script (`ssh-recon.sh`) | Searches the buffered IP list for the assigned Terminal Server | [Download SSH Recon Script](ssh-recon.sh) |
+| Password Dictionary (`dictionary.txt`) | Used during the authorized Hydra credential exercise | [Download Password Dictionary](dictionary.txt) |
+| Data Sheet (`Data_template.txt`) | Used for gathering information during the workshop for the Malcolm analysis | [Data Template](Data_template.txt) |
 
 ## Workshop Flow
 
@@ -286,7 +285,7 @@ The investigation should trace the workshop path through:
 | PLC baseline and process-isolation workflow | [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) |
 | Blue Team investigation | [Malcolm Blue Team Runbook](Malcolm.md) |
 | Student evidence and notes | [Purple Team Notes](Purple_Team_Notes.md) |
-| Workshop data reference | [Data Sheet](Data_sheet.txt) |
+| Workshop data reference | [Data Sheet](Data_template.txt) |
 
 ## Student Completion Checklist
 
