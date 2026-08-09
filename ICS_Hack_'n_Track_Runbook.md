@@ -45,10 +45,13 @@ Students will have printed instructions which explain the name of the terminal s
 > **Hint** The bash script can be found on the github repo, along with the list of known terminal server IPs. 
 
 ```bash
+chmod +x ssh-recon.sh
 ./ssh-recon.sh
 termsrv-XX
 ips
 ```
+
+> **Note** The `chmod +x` is required only once. Downloading the script through a browser does not preserve its executable permission, so without it the script fails with `Permission denied`.
 
 After compeleting the above instructions, the script will parse through the list of known IPs and stop once the correct connection is identified.
 
@@ -65,7 +68,7 @@ wsl
 
 **Hydra Installation Instructions (Linux)**
 ```bash
-sudo apt install Hydra
+sudo apt install hydra
 ```
 
 **Hydra Installation Instructions (MacOS)**
