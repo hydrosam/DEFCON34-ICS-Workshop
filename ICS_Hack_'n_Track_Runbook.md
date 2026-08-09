@@ -83,6 +83,8 @@ Validate Agent 1, listener ownership, firewall restrictions, and TermService sta
 
 Use the verification commands from the Terminal Server runbook.
 
+## [SECTION BREAK – PLEASE OPEN APPLICATION SERVER SETUP FOR CALDERA DOWNSTREAM AGENT RUNBOOK](Application_Server_Setup_for_Caldera_Downstream_Agent_Runbook.md)
+
 ### Phase 9 - Deploy Agent 2
 
 - Copy the downstream P2P command from CALDERA.
