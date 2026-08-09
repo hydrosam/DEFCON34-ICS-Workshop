@@ -1,0 +1,32 @@
+Workshop tools 
+
+Caldera 
+URL: 
+Username: 
+Password: 
+
+Malcolm 
+URL: 
+Username: 
+Password: 
+
+
+
+Site Infrastructure
+
+Terminal Server
+WAN IP: 
+Terminal highway IP: 
+Username: 
+Password:
+
+Application Server
+Terminal highway IP:
+Application highway IP:  
+Username: 
+Password: 
+
+PLC
+IP: 
+Username: 
+Password: 
