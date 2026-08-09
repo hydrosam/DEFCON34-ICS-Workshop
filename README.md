@@ -12,7 +12,7 @@ Use this README as the navigation page. Follow the runbooks in the order shown b
 |---|---|
 | [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) | Primary workshop narrative and student workflow |
 | [Terminal Server Runbook](Terminal_Server_Caldera_Pivot_Setup_Runbook.md) | Terminal Server discovery, CALDERA pivot preparation, Agent 1 deployment, and TCP/3389 validation |
-| [Application Server Runbook](Application_Server_Setup_For_Caldera_Downstream_Agent_Runbook.md) | PLC discovery, pivot validation, Agent 2 deployment, and PLC network-path validation |
+| [Application Server Runbook](Application_Server_Setup_for_Caldera_Downstream_Agent_Runbook.md) | PLC discovery, pivot validation, Agent 2 deployment, and PLC network-path validation |
 | [Malcolm Blue Team Runbook](Malcolm.md) | Blue Team investigation and reconstruction of the workshop activity |
 | [Purple Team Notes](Purple_Team_Notes.md) | Worksheet for credentials, addresses, agent details, PLC 
 
