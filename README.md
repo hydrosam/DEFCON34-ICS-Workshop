@@ -1,315 +1,355 @@
-# DEF CON OT Workshop User Guide
+# ICS Hack 'N Track: DEF CON OT Workshop
 
-## Welcome
+## User Guide
 
-This workshop simulates a complete IT-to-OT intrusion lifecycle. Students begin with only limited information, discover and compromise an exposed system, pivot through the environment using CALDERA, interact with a PLC simulator, and finally switch to a Blue Team perspective using Malcolm to investigate the attack path and process impact. 【1-456b84】
+This repository contains the student-facing documents and supporting files for the DEF CON OT workshop. The workshop follows an IT-to-OT path from external discovery through Terminal Server access, CALDERA pivoting, Application Server access, controlled PLC interaction, and Malcolm investigation.
 
-The workshop consists of four primary runbooks:
+Use this README as the navigation page. Follow the runbooks in the order shown below and return to the main runbook whenever a section break directs you to do so.
 
-1. Main Workshop Runbook
-2. Terminal Server CALDERA Pivot Setup Runbook
-3. Application Server CALDERA Agent Setup Runbook
-4. Malcolm Blue Team Runbook
+## Workshop Documents
 
-These documents should be completed in the order outlined below. 【1-456b84】
+| Document | Purpose |
+|---|---|
+| [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) | Primary workshop narrative and student workflow |
+| [Terminal Server Runbook](Terminal_Server_Caldera_Pivot_Setup_Runbook.md) | Terminal Server discovery, CALDERA pivot preparation, Agent 1 deployment, and TCP/3389 validation |
+| [Application Server Runbook](Application_Server_Setup_For_Caldera_Downstream_Agent_Runbook.md) | PLC discovery, pivot validation, Agent 2 deployment, and PLC network-path validation |
+| [Malcolm Blue Team Runbook](Malcolm.md) | Blue Team investigation and reconstruction of the workshop activity |
+| [Purple Team Notes](Purple_Team_Notes.md) | Worksheet for credentials, addresses, agent details, PLC 
 
----
+## Required Downloads
 
-# Required Downloads
-
-Download the following files before beginning:
+Download these files before beginning the workshop:
 
 | Resource | Purpose | Download |
-|-----------|----------|----------|
-| Buffered IP List | List of known Terminal Server IPs used during discovery | **[INSERT DOWNLOAD LINK]** |
-| SSH Recon Script (`ssh-recon.sh`) | Searches the IP list to identify the assigned Terminal Server | **[INSERT DOWNLOAD LINK]** |
-| Password Dictionary (`dictionary.txt`) | Used during the Hydra credential recovery exercise | **[INSERT DOWNLOAD LINK]** |
+|---|---|---|---|
+| Buffered IP List | List of known Terminal Server IP addresses used during public discovery | [Download Buffered IP List](INSERT_BUFFERED_IP_LIST_DOWNLOAD_LINK) |
+| SSH Recon Script (`ssh-recon.sh`) | Searches the buffered IP list for the assigned Terminal Server | [Download SSH Recon Script](INSERT_SSH_RECON_SCRIPT_DOWNLOAD_LINK) |
+| Password Dictionary (`dictionary.txt`) | Used during the authorized Hydra credential exercise | [Download Password Dictionary](INSERT_DICTIONARY_FILE_DOWNLOAD_LINK) |
+| Data Sheet (`Data_sheet.txt`) | Used during Malcolm Exercise |
+[Data Sheet](Data_sheet.txt) | Workshop data reference |
 
-[Data sheet](Data_sheet.txt)
-
-[Malcolm rundown](Malcolm.md)
----
-
-# Workshop Flow
+## Workshop Flow
 
 ```text
-Main Runbook
+README.md
     |
-    +--> Phase 1: Public Discovery
+    v
+Main Workshop Runbook
     |
-    +--> Phase 2: Credential Recovery
+    +--> Phase 1: Discovery
     |
-    +--> Phase 3: Terminal Server Access
+    +--> Phase 2: Obtain Terminal Server Credentials
     |
-    +--> Terminal Server Runbook
+    +--> Phase 3: Access the Terminal Server
     |
-    +--> Application Server Runbook
+    v
+Terminal Server Runbook
     |
-    +--> Main Runbook (PLC Activities)
+    +--> Find workshop and Application Server information
+    +--> Prepare TCP/3389
+    +--> Configure the restricted firewall rule
+    +--> Deploy and verify CALDERA Agent 1
     |
-    +--> Malcolm Blue Team Runbook
+    v
+Return to Main Workshop Runbook
+    |
+    v
+Application Server Runbook
+    |
+    +--> Find the target PLC
+    +--> Verify the Terminal Server pivot
+    +--> Deploy and verify CALDERA Agent 2
+    +--> Verify the PLC network path
+    |
+    v
+Return to Main Workshop Runbook
+    |
+    +--> Discover engineering context
+    +--> Establish the PLC baseline
+    +--> Stage the process-isolation request
+    +--> Observe process impact
+    +--> Clear the request and verify recovery
+    |
+    v
+Malcolm Blue Team Runbook
 ```
 
----
+## Before You Begin
 
-# Step 1 – Public Discovery
+1. Download the Buffered IP List, SSH Recon Script, Data sheet and Password Dictionary.
+2. Open [Purple Team Notes](Purple_Team_Notes.md) and record information as you progress.
+3. Open the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
+4. Do not skip a section break. Each section break tells you which runbook to open next.
+5. When a runbook tells you to return to the ICS_Hack_'n_Track_Runbook, return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
-Follow the Main Workshop Runbook.
+## Step 1: Public Discovery
 
-Students are provided a unique Terminal Server name and must use the supplied reconnaissance script and buffered IP list to identify the correct public IP address. 【1-456b84】
+Start in the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
-### Required Files
+Use the supplied SSH reconnaissance script and buffered IP list to identify the public IP address associated with your assigned Terminal Server name.
 
-- Buffered IP List
-- `ssh-recon.sh`
+Record the following in [Purple Team Notes](Purple_Team_Notes.md):
 
-### Expected Outcome
-
-You should identify:
-
+- Assigned Terminal Server name
 - Terminal Server public IP address
-- Confirmation that the host is reachable
-
----
-
-# Step 2 – Recover Terminal Server Credentials
-
-Continue following the Main Workshop Runbook.
-
-Students perform an authorized password recovery exercise using Hydra and the supplied dictionary file. The objective is to identify valid credentials for the exposed Terminal Server. 【1-456b84】
-
-### Required Files
-
-- `dictionary.txt`
+- SSH banner or identifying output
+- Reconnaissance command and result
 
 ### Expected Outcome
 
-You should obtain:
+- The assigned Terminal Server public IP address is known.
+- The host responds as expected to the workshop reconnaissance script.
 
+## Step 2: Obtain Terminal Server Credentials
+
+Continue in the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
+
+Complete the authorized Hydra dictionary exercise using the supplied password dictionary.
+
+Record the following in [Purple Team Notes](Purple_Team_Notes.md):
+
+- Dictionary file path
+- Hydra command
 - Terminal Server username
-- Terminal Server password
-
----
-
-# Step 3 – Access the Terminal Server
-
-Continue following the Main Workshop Runbook.
-
-Use SSH to log into the Terminal Server using the credentials recovered during the previous phase. Once connected, begin exploring the system. 【1-456b84】
+- Recovered Terminal Server password
+- Hydra output file
 
 ### Expected Outcome
 
-You should locate:
+- The Terminal Server username and password are known.
 
-- CALDERA URL
-- CALDERA username
-- CALDERA password
-- Malcolm URL
-- Malcolm username
-- Malcolm password
-- Application Server credentials document
+## Step 3: Access the Terminal Server
 
-These artifacts are intentionally placed on the Terminal Server as part of the workshop scenario. 【1-456b84】
+Continue in the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
----
+Connect to the Terminal Server over SSH and inspect the available files. Locate the workshop access information and the stored Application Server credentials.
 
-# Step 4 – Open the Terminal Server Runbook
+Record the following in [Purple Team Notes](Purple_Team_Notes.md):
 
-At the end of Phase 3, the Main Workshop Runbook directs students to the:
-
-## Terminal Server CALDERA Pivot Setup Runbook
-
-This runbook focuses on preparing the Terminal Server for CALDERA pivot operations.
-
-Students will:
-
-- Discover Application Server information
-- Verify ownership of TCP/3389
-- Disable Remote Desktop Services
-- Configure the CALDERA pivot listener
-- Configure Windows Firewall restrictions
-- Validate the pivot configuration
-
-The Terminal Server becomes the bridge between the public environment and the OT network. 【2-fc7ce0】
+- CALDERA URL, username, and password
+- Malcolm URL, username, and password
+- Application Server hostname or private IP
+- Application Server SSH username and password
+- Paths of the documents containing the information
 
 ### Expected Outcome
 
-Students should complete the following:
+- Terminal Server access is established.
+- CALDERA and Malcolm access details are known.
+- Application Server credentials are known.
 
-- CALDERA Agent 1 deployed
-- TCP/3389 configured for pivot communication
-- Firewall restricted to the Application Server
-- Pivot connectivity verified
+## Step 4: Complete the Terminal Server Runbook
 
-【2-fc7ce0】
+At the section break in the main runbook, open the [Terminal Server Runbook](Terminal_Server_Caldera_Pivot_Setup_Runbook.md).
 
----
+Follow that runbook from beginning to end. It contains the complete Terminal Server workflow:
 
-# Step 5 – Open the Application Server Runbook
+1. Confirm the scope and success criteria.
+2. Obtain the workshop information.
+3. Define the Terminal Server lab variables.
+4. Inspect Microsoft Defender and add the exact-file exception.
+5. Identify the current owner of TCP/3389.
+6. Stop and disable Remote Desktop Services after confirming alternate access.
+7. Create the restricted inbound firewall rule.
+8. Copy and run the current Terminal Server pivot command from CALDERA.
+9. Confirm the pivot process is running and owns TCP/3389.
+10. Run the compact verification block.
 
-Once the Terminal Server pivot is operational, move to the:
+> **Critical access warning:** Stopping Remote Desktop Services can terminate an active RDP session. Confirm the alternate administration path required by the Terminal Server runbook before stopping `TermService`.
 
-## Application Server CALDERA Agent Setup Runbook
+### Terminal Server Completion Check
 
-This runbook focuses on:
+Before returning to the main runbook, verify:
 
-- PLC discovery
-- Pivot verification
-- Downstream CALDERA agent deployment
-- OT connectivity validation
+- `TermService` is stopped and disabled.
+- The exact Sandcat executable path is allowlisted in Microsoft Defender.
+- The firewall rule allows only the assigned Application Server.
+- CALDERA Agent 1 is in the `pivot` group.
+- The P2P listener is bound to TCP/3389.
+- The pivot process owns TCP/3389.
 
-Students use the Terminal Server pivot to deploy Agent 2 onto the Application Server. 【3-2b4725】
+When the Terminal Server runbook reaches its final section break, return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
-### Expected Outcome
+## Step 5: Complete the Application Server Runbook
 
-Students should complete the following:
+When the workflow reaches the Application Server portion, open the [Application Server Runbook](Application_Server_Setup_For_Caldera_Downstream_Agent_Runbook.md).
 
-- PLC identified
-- Downstream CALDERA agent deployed
-- Agent assigned to the `red` group
-- OT path to PLC verified
+Follow that runbook from beginning to end. It contains the complete Application Server workflow:
 
-【3-2b4725】
+1. Confirm the scope and success criteria.
+2. Find the target PLC using Nmap and ARP.
+3. Define the Application Server lab variables.
+4. Verify the Terminal Server pivot listener is reachable on TCP/3389.
+5. Inspect Microsoft Defender and add the exact-file exception.
+6. Copy the current downstream/P2P command from CALDERA.
+7. Confirm the downstream process is running.
+8. Verify the Application Server agent in CALDERA.
+9. Verify the PLC network path on TCP/102.
+10. Run the compact verification block.
+11. Review the final expected state.
 
----
+### Application Server Completion Check
 
-# Step 6 – Return to the Main Workshop Runbook
+Before returning to the main runbook, verify:
 
-After completing the Terminal Server and Application Server runbooks, return to the Main Workshop Runbook.
+- The target PLC IP address is known.
+- The Terminal Server pivot is reachable on TCP/3389.
+- The exact Sandcat executable path is allowlisted in Microsoft Defender.
+- CALDERA Agent 2 appears as the Application Server agent.
+- Agent 2 is assigned to the `red` group.
+- The agent command line uses the Terminal Server pivot callback.
+- The PLC is reachable from the Application Server on TCP/102.
+- The Application Server retains the intended OT-facing source path.
 
-The remaining phases focus on OT reconnaissance and process interactions. 【1-456b84】
+When the Application Server runbook reaches its final section break, return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
-## Engineering Context Discovery
+## Step 6: Continue the Main Workshop Runbook
 
-Students locate engineering artifacts that explain the PLC environment.
+Continue with the PLC-facing phases in the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
-Examples include:
+### Discover Engineering Context
 
-- HMI exports
+Inspect the Application Server for artifacts that explain the PLC memory model, including:
+
+- HMI tag exports
 - Commissioning notes
-- Operator handoff documents
-- Status mappings
-- Troubleshooting references
-- DB1 and DB10 memory references
+- Operator handoff notes
+- Status maps
+- Troubleshooting documents
+- DB1 memory-layout references
+- DB10 memory-layout references
 
-【1-456b84】
+Record every relevant file path and finding in [Purple Team Notes](Purple_Team_Notes.md).
 
----
+### Identify the PLC and Establish a Baseline
 
-## PLC Discovery and Baseline Collection
+Use Agent 2 for PLC-facing actions:
 
-Students use Agent 2 to:
+- Run the OT port-scan ability.
+- Identify the PLC on TCP/102.
+- Complete the S7 handshake with rack 0 and slot 1.
+- Confirm the CPU is in RUN.
+- Read the baseline DB10 status.
+- Download the baseline DB1 process snapshot.
 
-- Locate the PLC
-- Complete the S7 handshake
-- Verify CPU state
-- Read baseline status values
-- Download process data
+### Stage the Process-Isolation Request
 
-【1-456b84】
+Follow the main runbook to:
 
----
+- Write command code 1 to the documented DB10 command area.
+- Capture or verify the command nonce.
+- Read the updated process status.
+- Download DB1 again.
+- Confirm the CPU remains in RUN.
 
-## Process Isolation Scenario
+### Observe the Process Impact
 
-Students stage a controlled process-isolation request and observe the resulting operational impact.
+Compare the baseline and impact values documented in the main runbook. Record the DB10 status, CPU state, mode, fuel flow, turbine RPM, fuel-valve position, steam flow, steam pressure, and system status in [Purple Team Notes](Purple_Team_Notes.md).
 
-Activities include:
+### Clear the Request and Verify Recovery
 
-- Writing the command to DB10
-- Validating process-state changes
-- Monitoring status values
-- Comparing process snapshots
+- Clear the DB10 process-isolation request.
+- Verify that the command code and nonce return to zero.
+- Read the recovered DB10 status.
+- Download DB1 again.
+- Confirm that the process returns to its baseline values.
 
-The controller remains operational while process output is reduced. 【1-456b84】
+The optional PLC STOP/HOT START branch remains separate from the primary process-isolation workflow and should be completed only when directed.
 
----
+## Step 7: Complete the Malcolm Blue Team Runbook
 
-## Process Recovery
+At the final section break in the main runbook, open the [Malcolm Blue Team Runbook](Malcolm.md).
 
-Students remove the isolation request and verify normal operations return.
+Use Malcolm to reconstruct the activity from the Blue Team perspective. Follow the Malcolm runbook in its existing order and record the relevant filters, views, timestamps or markers, source and destination systems, protocol observations, S7 activity, and supporting evidence in [Purple Team Notes](Purple_Team_Notes.md).
 
-Activities include:
+The investigation should trace the workshop path through:
 
-- Clearing the request
-- Confirming status recovery
-- Verifying baseline values
-- Reviewing updated process snapshots
-
-【1-456b84】
-
----
-
-# Step 7 – Open the Malcolm Blue Team Runbook
-
-After completing the OT attack sequence, students transition to the Blue Team perspective.
-
-## Malcolm Blue Team Runbook
-
-Using Malcolm, students reconstruct the complete attack path.
-
-Expected analysis areas include:
-
-1. Public exposure discovery
-2. Terminal Server compromise
+1. Public discovery
+2. Terminal Server access
 3. Credential discovery
-4. CALDERA pivot establishment
-5. Application Server compromise
-6. S7 communications
-7. Process isolation actions
-8. Process recovery activities
+4. Terminal Server pivot establishment
+5. Application Server activity
+6. S7 communication
+7. Process-isolation activity
+8. Process recovery
 
-This phase demonstrates how defenders correlate process impacts to the original IT compromise path. 【1-456b84】
+## Quick Reference
 
----
+| Activity | Document |
+|---|---|
+| Repository navigation | [README](README.md) |
+| Public discovery | [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) |
+| Credential exercise | [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) |
+| Terminal Server SSH access | [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) |
+| Terminal Server preparation and Agent 1 | [Terminal Server Runbook](Terminal_Server_Caldera_Pivot_Setup_Runbook.md) |
+| Application Server preparation and Agent 2 | [Application Server Runbook](Application_Server_Setup_For_Caldera_Downstream_Agent_Runbook.md) |
+| PLC baseline and process-isolation workflow | [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) |
+| Blue Team investigation | [Malcolm Blue Team Runbook](Malcolm.md) |
+| Student evidence and notes | [Purple Team Notes](Purple_Team_Notes.md) |
+| Workshop data reference | [Data Sheet](Data_sheet.txt) |
 
-# Quick Reference
+## Student Completion Checklist
 
-| Activity | Runbook |
-|-----------|----------|
-| Public Discovery | Main Workshop Runbook |
-| Password Recovery | Main Workshop Runbook |
-| Terminal Server Access | Main Workshop Runbook |
-| Pivot Configuration | Terminal Server Runbook |
-| Downstream Agent Deployment | Application Server Runbook |
-| PLC Discovery | Main Workshop Runbook |
-| Process Isolation | Main Workshop Runbook |
-| Recovery Validation | Main Workshop Runbook |
-| Threat Hunting and Investigation | Malcolm Runbook |
+### Preparation
 
-【1-456b84】【2-fc7ce0】【3-2b4725】
+- [ ] Download the Buffered IP List.
+- [ ] Download the SSH Recon Script.
+- [ ] Download the Password Dictionary.
+- [ ] Open Purple Team Notes.
 
----
+### Public Discovery and Initial Access
 
-# Student Completion Checklist
+- [ ] Identify the assigned Terminal Server public IP.
+- [ ] Recover the Terminal Server credentials.
+- [ ] Access the Terminal Server over SSH.
+- [ ] Locate the CALDERA access details.
+- [ ] Locate the Malcolm access details.
+- [ ] Locate the Application Server credentials.
 
-- [ ] Download Buffered IP List
-- [ ] Download SSH Recon Script
-- [ ] Download Dictionary File
-- [ ] Discover Terminal Server IP Address
-- [ ] Recover Terminal Server Credentials
-- [ ] Access Terminal Server
-- [ ] Locate CALDERA Credentials
-- [ ] Locate Malcolm Credentials
-- [ ] Locate Application Server Credentials
-- [ ] Complete Terminal Server Runbook
-- [ ] Complete Application Server Runbook
-- [ ] Deploy Agent 2
-- [ ] Identify the PLC
-- [ ] Capture Baseline Process State
-- [ ] Execute Process Isolation Exercise
-- [ ] Validate Recovery
-- [ ] Complete Malcolm Investigation
+### Terminal Server
 
----
+- [ ] Complete the Terminal Server runbook.
+- [ ] Confirm alternate administration access before stopping RDP.
+- [ ] Confirm Agent 1 is in the `pivot` group.
+- [ ] Confirm the P2P listener uses TCP/3389.
+- [ ] Confirm the firewall source is restricted to the Application Server.
+
+### Application Server
+
+- [ ] Access the Application Server.
+- [ ] Identify the target PLC.
+- [ ] Complete the Application Server runbook.
+- [ ] Confirm Agent 2 is in the `red` group.
+- [ ] Confirm the PLC path uses the Application Server OT-facing interface.
+- [ ] Confirm PLC TCP/102 reachability.
+
+### PLC Exercise
+
+- [ ] Discover the engineering context.
+- [ ] Capture the baseline process state.
+- [ ] Stage the process-isolation request.
+- [ ] Capture the impact state.
+- [ ] Clear the request.
+- [ ] Verify recovery to baseline values.
+
+### Malcolm Investigation
+
+- [ ] Complete the Malcolm Blue Team runbook.
+- [ ] Identify the Terminal Server activity.
+- [ ] Identify the pivot activity.
+- [ ] Identify the Application Server activity.
+- [ ] Identify the S7 activity.
+- [ ] Identify the process-isolation activity.
+- [ ] Identify the recovery activity.
+- [ ] Complete the investigation notes.
 
 ## Runbook Order Summary
 
-1. User Guide
-2. Main Workshop Runbook (Phases 1–3)
-3. Terminal Server Runbook
-4. Application Server Runbook
-5. Main Workshop Runbook (Phases 5–20)
-6. Malcolm Blue Team Runbook
-
-Following the documents in this order ensures students experience the attack path exactly as designed and can trace it end-to-end during the Blue Team investigation phase. 【1-456b84】【2-fc7ce0】【3-2b4725】
+1. [README](README.md)
+2. [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md), Phases 1 through 3
+3. [Terminal Server Runbook](Terminal_Server_Caldera_Pivot_Setup_Runbook.md)
+4. Return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md)
+5. [Application Server Runbook](Application_Server_Setup_For_Caldera_Downstream_Agent_Runbook.md)
+6. Return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md) for the PLC workflow
+7. [Malcolm Blue Team Runbook](Malcolm.md)
+8. Use [Purple Team Notes](Purple_Team_Notes.md) throughout the entire workshop
