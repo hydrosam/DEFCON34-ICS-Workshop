@@ -21,7 +21,7 @@ Use this README as the navigation page. Follow the runbooks in the order shown b
 Download these files before beginning the workshop:
 
 | Resource | Purpose | Download |
-|---|---|---|---|
+|---|---|---|
 | Buffered IP List | List of known Terminal Server IP addresses used during public discovery | [Download Buffered IP List](INSERT_BUFFERED_IP_LIST_DOWNLOAD_LINK) |
 | SSH Recon Script (`ssh-recon.sh`) | Searches the buffered IP list for the assigned Terminal Server | [Download SSH Recon Script](INSERT_SSH_RECON_SCRIPT_DOWNLOAD_LINK) |
 | Password Dictionary (`dictionary.txt`) | Used during the authorized Hydra credential exercise | [Download Password Dictionary](INSERT_DICTIONARY_FILE_DOWNLOAD_LINK) |
