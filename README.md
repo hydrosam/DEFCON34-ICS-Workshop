@@ -1,5 +1,7 @@
 # ICS Hack 'N Track: DEF CON OT Workshop
 
+Workshop presentation: [ICS Hack 'm Track](./DEFCON34_ICS_HacknTrack_Workshop.pdf)
+
 ## User Guide
 
 This repository contains the student-facing documents and supporting files for the DEF CON OT workshop. The workshop follows an IT-to-OT path from external discovery through Terminal Server access, CALDERA pivoting, Application Server access, controlled PLC interaction, and Malcolm investigation.
