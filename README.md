@@ -78,10 +78,11 @@ Malcolm Blue Team Runbook
 ## Before You Begin
 
 1. Download the Buffered IP List, SSH Recon Script, Data sheet and Password Dictionary.
-2. Open [Purple Team Notes](Purple_Team_Notes.md) and record information as you progress.
-3. Open the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
-4. Do not skip a section break. Each section break tells you which runbook to open next.
-5. When a runbook tells you to return to the ICS_Hack_'n_Track_Runbook, return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
+2. Make the recon script executable: `chmod +x ssh-recon.sh`
+3. Open [Purple Team Notes](Purple_Team_Notes.md) and record information as you progress.
+4. Open the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
+5. Do not skip a section break. Each section break tells you which runbook to open next.
+6. When a runbook tells you to return to the ICS_Hack_'n_Track_Runbook, return to the [Main Workshop Runbook](ICS_Hack_'n_Track_Runbook.md).
 
 ## Step 1: Public Discovery
 
